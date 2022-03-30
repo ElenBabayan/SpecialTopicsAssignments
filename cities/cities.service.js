@@ -14,7 +14,7 @@ module.exports = {
             const stateAbbreviation = response.data.places[0]['state abbreviation'];
             const country = response.data.country;
 
-            return await placeName + ", " + stateAbbreviation + ", " + country;
+            return placeName + ", " + stateAbbreviation + ", " + country;
         }
         catch (error) {
             throw new NotFoundError("No cities found!")

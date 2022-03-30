@@ -7,7 +7,7 @@ app.use(express.json());
 
 app.use('/cities/', citiesController);
 
-app.listen(3001, () => {
+app.listen(3000, () => {
     console.log('Server is running! 🚀');
 })
 
