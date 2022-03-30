@@ -1,50 +1,44 @@
-// In cities.repository.spec test the function getCityDataByZipCode of citiesRepository
-// ○ You should stub the axios.get function and check it to be
-// called exactly once with the correct parameter.
-
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
 const sinon = require('sinon');
-const mocha = require('mocha');
-const citiesService = require("./cities.service");
 const citiesRepository = require("./cities.repository");
+const assert = require("assert");
 
-// function responseData() {
-//     return {
-//       email: `someemail@user${id}.com`,
-//       first_name: `firstName${id}`,
-//       last_name: `lastName${id}`,
-//       avatar: `https://www.somepage${id}.com`,
-//     };
-//   }
-
+res = {
+    placeName: 'San Francisco',
+    stateAbbreviation: 'US',
+    country: 'United States'
+}
+res2 = {
+    placeName: 'Beverly Hills',
+    stateAbbreviation: 'US',
+    country: 'United States'
+}
 describe("Testing cities.repository file.", function () {
+
     let getCityDataByZipCodeStub;
 
-    // beforeEach(function () {
-    //     getCityDataByZipCodeStub = sinon.stub(citiesService, "getCityByZipCode");
-    // });
+    beforeEach(function () {
+        getCityDataByZipCodeStub = sinon.stub(citiesRepository, "getCityDataByZipCodeS");
+    });
 
-    // afterEach(function () {
-    //     getCityDataByZipCodeStub.restore();
-    // });
-
-
+    afterEach(function () {
+        getCityDataByZipCodeStub.restore();
+    });
 
     describe("Testing the 'getCityDataByZipCode' function.", function () {
         it("Returns information about city correctly.", async function () {
-            // arrange
-            getCityDataByZipCodeStub = sinon.stub(citiesRepository, "getCityDataByZipCode");
+            getCityDataByZipCodeStub.withArgs(94122).returns(res);
+            assert.equal(citiesRepository.getCityDataByZipCodeS(94122), getCityDataByZipCodeStub(94122))
 
-            getCityDataByZipCodeStub.returns("San Francisco, CA, United States");
-
-            const result = await citiesService.getCityByZipCode(94122);
-
-            console.log(result);
-            result.should.eventually.be.equal(getCityDataByZipCodeStub());
-
-            assert.equal(getCityDataByZipCodeStub.calledOnce, true);
+            assert.strictEqual(getCityDataByZipCodeStub.calledTwice, true);
         })
     })
 
+    describe("Testing the 'getCityDataByZipCode' function.", function () {
+        it("Returns information about city correctly.", async function () {
+            getCityDataByZipCodeStub.withArgs(90210).returns(res2);
+            assert.equal(citiesRepository.getCityDataByZipCodeS(90210), getCityDataByZipCodeStub(90210))
+
+            assert.strictEqual(getCityDataByZipCodeStub.calledTwice, true);
+        })
+    })
 })

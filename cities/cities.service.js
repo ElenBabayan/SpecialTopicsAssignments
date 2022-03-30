@@ -8,6 +8,8 @@ module.exports = {
             if (!response) {
                 throw new NotFoundError("No cities found!");
             }
+
+            console.log(response.data);
             const placeName = response.data.places[0]['place name'];
             const stateAbbreviation = response.data.places[0]['state abbreviation'];
             const country = response.data.country;
